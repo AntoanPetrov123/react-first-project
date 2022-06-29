@@ -1,5 +1,5 @@
 import classes from './CarItem.module.css';
-
+import CarItemForm from './CarItemForm';
 const CarItem = props => {
     const price = `$${props.price.toFixed(2)}`
     return (
@@ -13,7 +13,7 @@ const CarItem = props => {
                 <div className={classes.price}>{price}</div>
             </div>
             <div>
-
+                <CarItemForm />
             </div>
         </li>
     );
