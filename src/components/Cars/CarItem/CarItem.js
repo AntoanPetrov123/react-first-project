@@ -1,7 +1,22 @@
-import classes from './CarItem.module.css';
+import { useContext } from 'react';
+
+import CartContext from '../../../storage/cart-context';
 import CarItemForm from './CarItemForm';
+import classes from './CarItem.module.css';
+
 const CarItem = props => {
+    const cartContext = useContext(CartContext);
+
     const price = `$${props.price.toFixed(2)}`
+
+    const addToCartHandler = (amount) => {
+        cartContext.addItem({
+            id: props.id,
+            name: props.name,
+            amount: amount,
+            price: props.price
+        });
+    };
     return (
         <li className={classes.car}>
             <div>
@@ -13,7 +28,7 @@ const CarItem = props => {
                 <div className={classes.price}>{price}</div>
             </div>
             <div>
-                <CarItemForm />
+                <CarItemForm onAddToCart={addToCartHandler} />
             </div>
         </li>
     );

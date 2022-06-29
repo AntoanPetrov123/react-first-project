@@ -31,6 +31,7 @@ const AvaliableCars = () => {
     const carList = DUMMY_CARS.map((car) =>
         <CarItem
             key={car.id}
+            id={car.id}
             name={car.name}
             description={car.description}
             imageUrl={car.imageUrl}
