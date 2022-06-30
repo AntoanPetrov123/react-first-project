@@ -10,6 +10,7 @@ const DUMMY_CARS = [
         description: 'Brand New Model 2022 CLS 8.0 BTurbo',
         imageUrl: 'https://www.drivearabia.com/app/uploads/2021/04/mercedes-amg-cls-53-2021-4.jpg',
         price: 153000.00,
+        inCart: false,
     },
     {
         id: 'car2',
@@ -17,6 +18,7 @@ const DUMMY_CARS = [
         description: 'Audi S8 2019 from Germany 140000km, 260hp',
         imageUrl: 'http://superkoli.net/wp-content/uploads/2019/07/Audi-S8-Official2.jpg',
         price: 69000.00,
+        inCart: false,
     },
     {
         id: 'car3',
@@ -24,6 +26,7 @@ const DUMMY_CARS = [
         description: 'Brand New Lambo, color: green, hp: 500, gear: automatic',
         imageUrl: 'https://i.pinimg.com/originals/5a/70/fa/5a70fa3a41a543693f3d3ae018b82eab.jpg',
         price: 1200000.00,
+        inCart: false,
     },
 ];
 
@@ -36,6 +39,7 @@ const AvaliableCars = () => {
             description={car.description}
             imageUrl={car.imageUrl}
             price={car.price}
+            inCart={car.inCart}
         />
     );
 

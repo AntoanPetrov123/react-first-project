@@ -14,13 +14,13 @@ const CarItem = props => {
             id: props.id,
             name: props.name,
             amount: amount,
-            price: props.price
+            price: props.price,
         });
     };
     return (
         <li className={classes.car}>
             <div>
-                <img src={props.imageUrl} alt="car img" className={classes.img}/>
+                <img src={props.imageUrl} alt="car img" className={classes.img} />
             </div>
             <div>
                 <div><h3>{props.name}</h3></div>
