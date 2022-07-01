@@ -15,7 +15,7 @@ const Cart = props => {
     const hasItems = cartContext.items.length > 0;
 
     const removeItemFromCartHandler = id => {
-
+        cartContext.removeItem(id);
     };
 
     const cartItems = <ul className={classes['cart-items']}>{
