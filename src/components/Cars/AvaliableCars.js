@@ -8,10 +8,15 @@ import classes from './AvaliableCars.module.css';
 const AvaliableCars = () => {
     const [cars, setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchCars = async () => {
             const response = await fetch('https://change-your-car-react-default-rtdb.firebaseio.com/cars.json');
+
+            if (!response.ok) {
+                throw new Error('Somthing is wrong!');
+            }
             const responseData = await response.json();
 
             const loadedCars = [];
@@ -29,7 +34,12 @@ const AvaliableCars = () => {
             setIsLoading(false);
         };
 
-        fetchCars();
+        //chech if we have any errors
+        fetchCars().catch((err) => {
+            setIsLoading(false);
+            setError(err.message);
+        });
+
     }, []);
 
     if (isLoading) {
@@ -38,6 +48,14 @@ const AvaliableCars = () => {
                 <div className={classes["loading-spinner"]}>
                 </div>
             </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <section className={classes['cars-error-box']}>
+                <p className={classes['cars-error']}>{error}</p>
+            </section>
         );
     }
 

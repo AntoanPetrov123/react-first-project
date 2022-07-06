@@ -5,6 +5,8 @@
     animation: cars-appear 1s ease-out forwards;
   }
 
+  /* SPINNER */
+  
   @keyframes spinner {
     0% {
       
@@ -32,7 +34,26 @@
     align-items: center;
     height: 350px;
   }
+
+  /* ERRORS */
   
+  .cars-error-box {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cars-error-box .cars-error {
+    padding: 35px 180px;
+    border: 3px solid #9b001a;
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.6);
+    background-color: rgb(245, 95, 95);
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
   .cars ul {
     list-style: none;
     margin: 0;
