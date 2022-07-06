@@ -7,6 +7,8 @@ import classes from './AvaliableCars.module.css';
 
 const AvaliableCars = () => {
     const [cars, setCars] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         const fetchCars = async () => {
             const response = await fetch('https://change-your-car-react-default-rtdb.firebaseio.com/cars.json');
@@ -24,10 +26,21 @@ const AvaliableCars = () => {
                 });
             }
             setCars(loadedCars);
+            setIsLoading(false);
         };
 
         fetchCars();
     }, []);
+
+    if (isLoading) {
+        return (
+            <div className={classes['spinner-container']} >
+                <div className={classes["loading-spinner"]}>
+                </div>
+            </div>
+        );
+    }
+
     const carList = cars.map((car) =>
         <CarItem
             key={car.id}
