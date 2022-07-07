@@ -8,6 +8,8 @@ import Cart from './components/Cart/Cart';
 import CartProvider from './storage/CartProvider';
 import Home from './components/Home/Home';
 import Footer from './components/Layout/Footer';
+import AuthForm from './components/Authentication/AuthForm';
+
 
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cars-catalog" element={<Cars />} />
+          <Route path="/auth" element={<AuthForm />} />
         </Routes>
       </main>
       <Footer />

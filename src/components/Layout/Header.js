@@ -18,10 +18,7 @@ const Header = props => {
                         <Link to="/cars-catalog">Catalog</Link>
                     </li>
                     <li className={classes['nav-link']}>
-                        <Link to="/login">Login</Link>
-                    </li>
-                    <li className={classes['nav-link']}>
-                        <Link to="/register">Register</Link>
+                        <Link to="/auth">Login</Link>
                     </li>
                     <li className={classes['nav-link']}>
                         <Link to="/">Logout</Link>
