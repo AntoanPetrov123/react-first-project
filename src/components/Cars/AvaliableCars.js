@@ -67,7 +67,6 @@ const AvaliableCars = () => {
             description={car.description}
             imageUrl={car.imageUrl}
             price={car.price}
-            inCart={car.inCart}
         />
     );
 
