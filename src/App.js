@@ -7,6 +7,7 @@ import Cars from './components/Cars/Cars';
 import Cart from './components/Cart/Cart';
 import CartProvider from './storage/CartProvider';
 import Home from './components/Home/Home';
+import Footer from './components/Layout/Footer';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/cars-catalog" element={<Cars />} />
         </Routes>
       </main>
+      <Footer />
     </CartProvider>
   );
 }
