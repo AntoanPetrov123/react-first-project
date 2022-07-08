@@ -7,9 +7,10 @@ import Cars from './components/Cars/Cars';
 import Cart from './components/Cart/Cart';
 import CartProvider from './storage/CartProvider';
 import Home from './components/Home/Home';
-import Footer from './components/Layout/Footer';
+// import Footer from './components/Layout/Footer';
 import AuthPage from './components/Authentication/AuthPage';
-import CreateCarPost from './components/Cars/Create/CreateCarPost';
+import CarDetails from './components/Cars/CarItem/CarDetails';
+import NewPost from './components/Cars/Create/NewPost';
 
 
 
@@ -33,12 +34,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cars-catalog" element={<Cars />} />
-          <Route path="/create-post" element={<CreateCarPost />} />
+          <Route path="/create-post" element={<NewPost />} />
+          <Route path="/details/:id" element={<CarDetails />} />
           <Route path="/profile" element={<Cars />} />
           <Route path="/auth" element={<AuthPage />} />
         </Routes>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </CartProvider>
   );
 }

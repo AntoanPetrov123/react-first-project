@@ -29,9 +29,7 @@ const CarItem = props => {
                 <div className={classes.price}>{price}</div>
             </div>
             <div className={classes['details-btn']}>
-                <button>
-                    <Link to="/details:id">Details</Link>
-                </button>
+                    <Link to={`/details/${props.id}`}>Details</Link>
             </div>
             <div>
                 <CarItemForm onAddToCart={addToCartHandler} />
