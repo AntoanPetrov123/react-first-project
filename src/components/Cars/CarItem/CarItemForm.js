@@ -1,8 +1,7 @@
-import { useRef } from 'react';
+
 
 import classes from './CarItemForm.module.css';
 const CarItemForm = props => {
-    const amountRef = useRef();
     
     const submitHandler = event => {
         event.preventDefault();
@@ -13,7 +12,7 @@ const CarItemForm = props => {
 
     return (
         <form className={classes.form} onSubmit={submitHandler}>
-            <button ref={amountRef}>+ Add</button>
+            <button>Add</button>
         </form>
     )
 };

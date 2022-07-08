@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import HeaderCartButton from './HeaderCartButton';
 import backgroundImage from '../../assets/cars-background.png';
@@ -12,22 +12,22 @@ const Header = props => {
                 <h1 className={classes.head}>Change Your Car</h1>
                 <ul className={classes['nav-list']}>
                     <li className={classes['nav-link']}>
-                        <Link to="/">Home</Link>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/">Home</NavLink>
                     </li>
                     <li className={classes['nav-link']}>
-                        <Link to="/cars-catalog">Catalog</Link>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/cars-catalog">Catalog</NavLink>
                     </li>
                     <li className={classes['nav-link']}>
-                        <Link to="/create-post">Post</Link>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/create-post">Post</NavLink>
                     </li>
                     <li className={classes['nav-link']}>
-                        <Link to="/profile">Profile</Link>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/profile">Profile</NavLink>
                     </li>
                     <li className={classes['nav-link']}>
-                        <Link to="/auth">Login</Link>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/auth">Login</NavLink>
                     </li>
                     <li className={classes['nav-link']}>
-                        <Link to="/">Logout</Link>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/">Logout</NavLink>
                     </li>
                 </ul>
                 <HeaderCartButton onClick={props.onShowCart} />

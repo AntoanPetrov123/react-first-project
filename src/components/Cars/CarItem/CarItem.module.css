@@ -4,7 +4,7 @@
     margin: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
-    gap: 30px;
+    gap: 12px;
   }
 
   .car :nth-child(2) {
@@ -31,4 +31,25 @@
     font-weight: bold;
     color: #045a8b;
     font-size: 1.25rem;
+  }
+
+  .details-btn {
+    text-align: right;
+  }
+  
+  .details-btn button {
+    font: inherit;
+    cursor: pointer;
+    background-color: #045a8b;
+    border: 1px solid #045a8b;
+    color: white;
+    padding: 0.25rem 2rem;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+  
+  .details-btn button:hover,
+  .details-btn button:active {
+    background-color: #04324d;
+    border-color: #04324d;
   }

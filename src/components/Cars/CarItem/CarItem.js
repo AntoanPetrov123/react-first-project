@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import CartContext from '../../../storage/cart-context';
 import CarItemForm from './CarItemForm';
 import classes from './CarItem.module.css';
+import { Link } from 'react-router-dom';
 
 const CarItem = props => {
     const cartContext = useContext(CartContext);
@@ -26,6 +27,11 @@ const CarItem = props => {
                 <div><h3>{props.name}</h3></div>
                 <div className={classes.description}>{props.description}</div>
                 <div className={classes.price}>{price}</div>
+            </div>
+            <div className={classes['details-btn']}>
+                <button>
+                    <Link to="/details:id">Details</Link>
+                </button>
             </div>
             <div>
                 <CarItemForm onAddToCart={addToCartHandler} />
