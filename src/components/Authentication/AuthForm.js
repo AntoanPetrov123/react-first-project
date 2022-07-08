@@ -5,10 +5,11 @@ import classes from './AuthForm.module.css';
 const AuthForm = () => {
   // const usernameInputRef = useRef();
   // const rePasswordInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
 
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -18,17 +19,18 @@ const AuthForm = () => {
     event.peventDefault();
 
     // const enteredUsername = usernameInputRef.current.value;
-    const enteredEmail = emailInputRef.value;
-    const enteredPassword = passwordInputRef.value;
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
     // const enteredRePassword = rePasswordInputRef.current.value;
 
-    console.log(enteredEmail, enteredPassword);
+    console.log(enteredEmail, enteredPassword, 'here');
     // TODO: Add validation
+    setIsLoading(true);
     let url;
     if (isLogin) {
       url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc';
     } else {
-      url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc';
+      url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc.json';
     }
 
     fetch(url,
@@ -46,17 +48,21 @@ const AuthForm = () => {
       }
     )
       .then(res => {
+        setIsLoading(false);
         if (res.ok) {
           return res.json();
         } else {
           return res.json().then(data => {
             let errorMessage = 'Authentication failed';
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
             // alert(errorMessage);
             throw new Error(errorMessage);
           });
         }
-      }
-      ).then(data => {
+      })
+      .then(data => {
         console.log(data);
       })
       .catch(error => alert(error.message));
@@ -83,7 +89,10 @@ const AuthForm = () => {
           <input type='password' id='rePassword' ref={rePasswordInputRef} required />
         </div>} */}
         <div className={classes.actions}>
-          <button>{isLogin ? 'Login' : 'Create Account'}</button>
+          {!isLoading && (
+            <button>{isLogin ? 'Login' : 'Create Account'}</button>
+          )}
+          {isLoading && <p>Sending request...</p>}
           <button
             type='button'
             className={classes.toggle}
