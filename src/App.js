@@ -11,6 +11,7 @@ import Home from './components/Home/Home';
 import AuthPage from './components/Authentication/AuthPage';
 import CarDetails from './components/Cars/CarItem/CarDetails';
 import NewPost from './components/Cars/Create/NewPost';
+import NotFound from './components/UI/NotFound';
 
 
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/details/:id" element={<CarDetails />} />
           <Route path="/profile" element={<Cars />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </main>
       {/* <Footer /> */}
