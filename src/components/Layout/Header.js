@@ -18,6 +18,12 @@ const Header = props => {
                         <Link to="/cars-catalog">Catalog</Link>
                     </li>
                     <li className={classes['nav-link']}>
+                        <Link to="/create-post">Post</Link>
+                    </li>
+                    <li className={classes['nav-link']}>
+                        <Link to="/profile">Profile</Link>
+                    </li>
+                    <li className={classes['nav-link']}>
                         <Link to="/auth">Login</Link>
                     </li>
                     <li className={classes['nav-link']}>

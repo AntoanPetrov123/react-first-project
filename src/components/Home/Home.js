@@ -2,7 +2,7 @@ import classes from './Home.module.css';
 const Home = () => {
     return (
         <section className={classes.home}>
-            <h1 className={classes.header}>Welcome <accent className={classes.accent}>to Our site</accent></h1>
+            <h1 className={classes.header}>Welcome <span className={classes.accent}>to Our site</span></h1>
             <div className={classes.dividers}>
                 <hr className={classes['divider-one']} />
                 <hr className={classes['divider-two']} />
