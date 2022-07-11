@@ -1,12 +1,12 @@
 import CreateCarPostForm from "./CreateCarPostForm";
 
 const NewPost = () => {
-    const addPostHandler = postData => {
+    // const addPostHandler = postData => {
 
-    };
+    // };
 
     return(
-        <CreateCarPostForm onAddPost={addPostHandler} />
+        <CreateCarPostForm />
     );
 };
 

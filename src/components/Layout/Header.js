@@ -24,7 +24,10 @@ const Header = props => {
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/profile">Profile</NavLink>
                     </li>
                     <li className={classes['nav-link']}>
-                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/auth">Login</NavLink>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/login">Login</NavLink>
+                    </li>
+                    <li className={classes['nav-link']}>
+                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/register">Register</NavLink>
                     </li>
                     <li className={classes['nav-link']}>
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/">Logout</NavLink>

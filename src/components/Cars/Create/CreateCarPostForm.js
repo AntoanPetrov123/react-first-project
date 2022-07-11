@@ -1,50 +1,45 @@
-import { useRef } from 'react';
-
 import classes from './CreateCarPostForm.module.css';
 
 const CreateCarPostForm = (props) => {
 
-    const brandInputRef = useRef();
-    const imageInputRef = useRef();
-    const descriptionInputRef = useRef();
-    const priceInputRef = useRef();
+  function submitFormHandler(event) {
+    event.preventDefault();
 
+    let formData = new FormData(event.currentTarget);
+    let brnad = formData.get('name');
+    let image = formData.get('image');
+    let description = formData.get('description');
+    let price = formData.get('price');
 
-    function submitFormHandler(event) {
-      event.preventDefault();
+    // props.onCreatePost({ name: brnad, imageUrl: image, description: description, price: price});
 
-      const enteredBrand = brandInputRef.current.value;
-      const enteredImage = imageInputRef.current.value;
-      const enteredDescription = descriptionInputRef.current.value;
-      const enteredPrice = priceInputRef.current.value;
+    console.log(brnad, image, description, price);
+  }
 
-      props.onCreatePost({ name: enteredBrand, imageUrl: enteredImage, description: enteredDescription, price: enteredPrice})
-    }
-
-    return(
-<section className={classes.auth}>
+  return (
+    <section className={classes.auth}>
       <h1>Create a post</h1>
-      <form onSubmit={submitFormHandler}>
+      <form method="POST" onSubmit={submitFormHandler}>
         <div className={classes.control}>
           <label htmlFor='name'>Car Brand</label>
-          <input type='text' id='name' placeholder='Mercedes' required ref={brandInputRef} />
-        </div> 
+          <input type='text' name='name' id='name' placeholder='Mercedes' required />
+        </div>
         <div className={classes.control}>
           <label htmlFor='image'>Car Photo</label>
-          <input type='text' id='image' placeholder='http://...' required ref={imageInputRef} />
+          <input type='text' name='image' id='image' placeholder='http://...' required />
         </div>
         <div className={classes.control}>
           <label htmlFor='description'>Car Description</label>
-          <textarea type='text' id='description' rows='4' placeholder='Brand new; Color: red; Year: 2018...' required ref={descriptionInputRef}></textarea>
+          <textarea type='text' name='description' id='description' rows='4' placeholder='Brand new; Color: red; Year: 2018...' required></textarea>
         </div>
         <div className={classes.control}>
           <label htmlFor='price'>Car Price</label>
-          <input type='number' id='price' placeholder='8888.88' required ref={priceInputRef} />
+          <input type='number' name='price' id='price' placeholder='8888.88' required />
         </div>
         <div className={classes.actions}>
-          
-            <button>Submit</button>
-          
+
+          <button>Submit</button>
+
           <button
             type='button'
             className={classes.toggle}
@@ -54,7 +49,7 @@ const CreateCarPostForm = (props) => {
         </div>
       </form>
     </section>
-    );
+  );
 };
 
 export default CreateCarPostForm;

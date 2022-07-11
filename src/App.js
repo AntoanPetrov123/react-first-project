@@ -8,10 +8,12 @@ import Cart from './components/Cart/Cart';
 import CartProvider from './storage/CartProvider';
 import Home from './components/Home/Home';
 // import Footer from './components/Layout/Footer';
-import AuthPage from './components/Authentication/AuthPage';
+// import AuthPage from './components/Authentication/AuthPage';
 import CarDetails from './components/Cars/CarItem/CarDetails';
 import NewPost from './components/Cars/Create/NewPost';
 import NotFound from './components/UI/NotFound';
+import Register from './components/Authentication/Register';
+import Login from './components/Authentication/Login';
 
 
 
@@ -38,7 +40,8 @@ function App() {
           <Route path="/create-post" element={<NewPost />} />
           <Route path="/details/:id" element={<CarDetails />} />
           <Route path="/profile" element={<Cars />} />
-          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </main>
