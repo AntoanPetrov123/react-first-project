@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
@@ -8,18 +8,21 @@ import Cart from './components/Cart/Cart';
 import CartProvider from './storage/CartProvider';
 import Home from './components/Home/Home';
 // import Footer from './components/Layout/Footer';
-// import AuthPage from './components/Authentication/AuthPage';
 import CarDetails from './components/Cars/CarItem/CarDetails';
 import NewPost from './components/Cars/Create/NewPost';
 import NotFound from './components/UI/NotFound';
 import Register from './components/Authentication/Register';
 import Login from './components/Authentication/Login';
+import AuthContext from './storage/auth-context';
 
 
 
 function App() {
 
   const [cartIsShown, setCartIsShown] = useState(false);
+
+  const authContext = useContext(AuthContext);
+  const isAuth = authContext.isLoggedIn;
 
   const showCartHandler = () => {
     setCartIsShown(true);
@@ -37,11 +40,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cars-catalog" element={<Cars />} />
-          <Route path="/create-post" element={<NewPost />} />
+          {isAuth && <Route path="/create-post" element={<NewPost />} />}
           <Route path="/details/:id" element={<CarDetails />} />
-          <Route path="/profile" element={<Cars />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {isAuth && <Route path="/profile" element={<Cars />} />}
+          {!isAuth && <Route path="/login" element={<Login />} />}
+          {!isAuth && <Route path="/register" element={<Register />} />}
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </main>
