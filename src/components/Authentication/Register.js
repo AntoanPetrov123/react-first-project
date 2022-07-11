@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import AuthContext from '../../storage/auth-context';
+import { Link, useNavigate } from 'react-router-dom';
 
+import AuthContext from '../../storage/auth-context';
 import classes from './AuthPage.module.css';
 
 const Register = () => {
 
     const authContext = useContext(AuthContext);
+    const redirect = useNavigate();
 
 
     const [isLoading, setIsLoading] = useState(false);
@@ -73,6 +74,7 @@ const Register = () => {
                         },
                     }
                 )
+                redirect('/');
             })
             .catch(error => alert(error.message));
     };

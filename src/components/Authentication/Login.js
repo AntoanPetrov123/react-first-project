@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../storage/auth-context';
 
 import classes from './AuthPage.module.css';
@@ -7,6 +7,7 @@ import classes from './AuthPage.module.css';
 const Login = () => {
 
     const authContext = useContext(AuthContext);
+    const redirect = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -55,6 +56,7 @@ const Login = () => {
             .then(data => {
                 console.log(data);
                 authContext.login(data.idToken);
+                redirect('/'); //redirect after login
             })
             .catch(error => alert(error.message));
     };
