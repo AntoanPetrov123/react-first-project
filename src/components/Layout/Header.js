@@ -1,11 +1,18 @@
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import HeaderCartButton from './HeaderCartButton';
 import backgroundImage from '../../assets/cars-background.png';
+import AuthContext from '../../storage/auth-context';
 import classes from './Header.module.css';
 
 const Header = props => {
+
+    const authContext = useContext(AuthContext);
+
+    const isLoggedIn = authContext.isLoggedIn;
+    console.log(isLoggedIn, 'logging');
+
     return (
         <Fragment>
             <header className={classes.header}>
@@ -17,21 +24,21 @@ const Header = props => {
                     <li className={classes['nav-link']}>
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/cars-catalog">Catalog</NavLink>
                     </li>
-                    <li className={classes['nav-link']}>
+                    {isLoggedIn && <li className={classes['nav-link']}>
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/create-post">Post</NavLink>
-                    </li>
-                    <li className={classes['nav-link']}>
+                    </li>}
+                    {isLoggedIn && <li className={classes['nav-link']}>
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/profile">Profile</NavLink>
-                    </li>
-                    <li className={classes['nav-link']}>
+                    </li>}
+                    {!isLoggedIn && <li className={classes['nav-link']}>
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/login">Login</NavLink>
-                    </li>
-                    <li className={classes['nav-link']}>
+                    </li>}
+                    {!isLoggedIn && <li className={classes['nav-link']}>
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/register">Register</NavLink>
-                    </li>
-                    <li className={classes['nav-link']}>
+                    </li>}
+                    {isLoggedIn && <li className={classes['nav-link']}>
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/">Logout</NavLink>
-                    </li>
+                    </li>}
                 </ul>
                 <HeaderCartButton onClick={props.onShowCart} />
             </header>

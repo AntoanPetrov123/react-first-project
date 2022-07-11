@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../storage/auth-context';
 
 import classes from './AuthPage.module.css';
 
 const Login = () => {
+
+    const authContext = useContext(AuthContext);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -51,6 +54,7 @@ const Login = () => {
             })
             .then(data => {
                 console.log(data);
+                authContext.login(data.idToken);
             })
             .catch(error => alert(error.message));
     };
@@ -62,11 +66,11 @@ const Login = () => {
 
                 <div className={classes.control}>
                     <label htmlFor='email'>Your Email</label>
-                    <input type='email' name='email' id='email' required />
+                    <input type='email' name='email' id='email' placeholder='john@gmail.com' required />
                 </div>
                 <div className={classes.control}>
                     <label htmlFor='password'>Your Password</label>
-                    <input type='password' name='password' id='password' required />
+                    <input type='password' name='password' id='password' placeholder='*****' required />
                 </div>
 
                 <div className={classes.actions}>

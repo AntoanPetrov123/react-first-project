@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../storage/auth-context';
 
 import classes from './AuthPage.module.css';
 
 const Register = () => {
+
+    const authContext = useContext(AuthContext);
+
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -53,6 +57,7 @@ const Register = () => {
             })
             .then(data => {
                 console.log(data);
+                authContext.login(data.idToken);
                 fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json',
                     {
                         method: 'POST',
