@@ -25,7 +25,6 @@ const Login = () => {
             {
                 method: 'POST',
                 body: JSON.stringify({
-                    // username: enteredUsername,
                     email: enteredEmail,
                     password: enteredPassword,
                     returnSecureToken: true

@@ -26,7 +26,7 @@ const Register = () => {
             {
                 method: 'POST',
                 body: JSON.stringify({
-                    // username: enteredUsername,
+                    username: enteredUsername,
                     email: enteredEmail,
                     password: enteredPassword,
                     returnSecureToken: true
@@ -53,6 +53,21 @@ const Register = () => {
             })
             .then(data => {
                 console.log(data);
+                fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json',
+                    {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            userId: data.localId,
+                            username: enteredUsername,
+                            email: enteredEmail,
+                            password: enteredPassword,
+                            posts: [],
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    }
+                )
             })
             .catch(error => alert(error.message));
     };
