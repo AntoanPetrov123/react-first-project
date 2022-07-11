@@ -13,6 +13,10 @@ const Header = props => {
     const isLoggedIn = authContext.isLoggedIn;
     console.log(isLoggedIn, 'logging');
 
+    const logoutHandler = () => {
+        authContext.logout();
+    };
+
     return (
         <Fragment>
             <header className={classes.header}>
@@ -37,7 +41,7 @@ const Header = props => {
                         <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/register">Register</NavLink>
                     </li>}
                     {isLoggedIn && <li className={classes['nav-link']}>
-                        <NavLink className={({ isActive }) => (isActive ? classes.active : null)}  to="/">Logout</NavLink>
+                        <button className={classes['logout-btn']}  onClick={logoutHandler}>Logout</button>
                     </li>}
                 </ul>
                 <HeaderCartButton onClick={props.onShowCart} />

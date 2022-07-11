@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 
+:root{
+  --yellow-color: #cfc538;
+}
 .header {
     position: fixed;
     top: 0;
@@ -39,16 +42,31 @@
   {
     text-decoration: none;
     font-size: 20px;
-    color: #cfc538;
-    border-bottom: 2px solid #cfc538;
+    color: var(--yellow-color);
+    border-bottom: 2px solid var(--yellow-color);
+  }
+
+  .logout-btn {
+    cursor: pointer;
+    background-color: transparent;
+    padding: 7px 15px;
+    border: 2px solid #045a8b;
+    border-radius: 15px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .logout-btn:hover {
+    border: 2px solid var(--yellow-color);
   }
 
   .active
   {
     text-decoration: none;
     font-size: 20px;
-    color: #cfc538;
-    border-bottom: 2px solid #cfc538;
+    color: var(--yellow-color);
+    border-bottom: 2px solid var(--yellow-color);
   }
   
   .main-image {
