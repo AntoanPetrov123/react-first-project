@@ -1,5 +1,5 @@
 import { Fragment, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import HeaderCartButton from './HeaderCartButton';
 import backgroundImage from '../../assets/cars-background.png';
@@ -8,6 +8,8 @@ import classes from './Header.module.css';
 
 const Header = props => {
 
+    const redirect = useNavigate();
+
     const authContext = useContext(AuthContext);
 
     const isLoggedIn = authContext.isLoggedIn;
@@ -15,6 +17,7 @@ const Header = props => {
 
     const logoutHandler = () => {
         authContext.logout();
+        redirect('/login');
     };
 
     return (
