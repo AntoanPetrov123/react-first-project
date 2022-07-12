@@ -4,6 +4,7 @@ let logoutTimer;
 
 const AuthContext = createContext({
     token: '',
+    userId: '',
     isLoggedIn: false,
     login: (token) => { },
     logout: () => { }
@@ -45,11 +46,14 @@ export const AuthContextProvider = (props) => {
     }
 
     const [token, setToken] = useState(initialToken);
+    const [userId, setUserId] = useState(null);
 
     const userIsLoggedIn = !!token; //empty => false
 
     const logoutHandler = useCallback(() => {
         setToken(null);
+        setUserId(null);
+        localStorage.removeItem('userId');
         localStorage.removeItem('token');
         localStorage.removeItem('expirationTime');
 
@@ -58,8 +62,10 @@ export const AuthContextProvider = (props) => {
         }
     }, []);
 
-    const loginHandler = (token, expirationTime) => {
+    const loginHandler = (token, expirationTime, userId) => {
         setToken(token);
+        setUserId(userId);
+        localStorage.setItem('userId', userId);
         localStorage.setItem('token', token); //save token locally
         localStorage.setItem('expirationTime', expirationTime); //save expiration time locally
 
@@ -76,6 +82,7 @@ export const AuthContextProvider = (props) => {
 
     const contextValue = {
         token: token,
+        userId: userId,
         isLoggedIn: userIsLoggedIn,
         login: loginHandler,
         logout: logoutHandler

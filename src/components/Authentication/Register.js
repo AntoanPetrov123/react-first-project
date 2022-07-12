@@ -19,13 +19,11 @@ const Register = () => {
         let enteredUsername = formData.get('username');
         let enteredEmail = formData.get('email');
         let enteredPassword = formData.get('password');
-        let enteredRePassword = formData.get('rePassword');
-        console.log(enteredUsername, enteredEmail, enteredPassword, enteredRePassword);
+        // let enteredRePassword = formData.get('rePassword');
 
         // TODO: Add validation
         setIsLoading(true);
-        let url;
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc';
+        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc';
 
         fetch(url,
             {
@@ -57,7 +55,6 @@ const Register = () => {
                 }
             })
             .then(data => {
-                console.log(data);
                 authContext.login(data.idToken);
                 fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json',
                     {

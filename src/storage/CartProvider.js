@@ -20,11 +20,9 @@ const cartReducer = (state, action) => {
                 ...existingCartItem,
                 amount: 1
             };
-            console.log(updatedItem, 'updated items');
             updatedItems = [...state.items];
             updatedItems[existingItemInCartIndex] = updatedItem;
 
-            console.log(updatedItems, 'updated items');
 
         } else {
             updatedItems = state.items.concat(action.item); //give us new array

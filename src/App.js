@@ -14,6 +14,7 @@ import NotFound from './components/UI/NotFound';
 import Register from './components/Authentication/Register';
 import Login from './components/Authentication/Login';
 import AuthContext from './storage/auth-context';
+import Profile from './components/Authentication/Profile/Profile';
 
 
 
@@ -42,7 +43,7 @@ function App() {
           <Route path="/cars-catalog" element={<Cars />} />
           {isAuth && <Route path="/create-post" element={<NewPost />} />}
           <Route path="/details/:id" element={<CarDetails />} />
-          {isAuth && <Route path="/profile" element={<Cars />} />}
+          {isAuth && <Route path="/profile" element={<Profile />} />}
           {!isAuth && <Route path="/login" element={<Login />} />}
           {!isAuth && <Route path="/register" element={<Register />} />}
           <Route path="*" element={<NotFound />}></Route>

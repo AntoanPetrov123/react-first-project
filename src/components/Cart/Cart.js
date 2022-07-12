@@ -11,7 +11,8 @@ const Cart = props => {
 
     const cartContext = useContext(CartContext);
 
-    const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
+    const total = cartContext.totalAmount.toFixed(2);
+    const totalAmount = `$${total}`;
     const emptyCartAmount = (0).toFixed(2);
     const hasItems = cartContext.items.length > 0;
 

@@ -5,6 +5,7 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
     gap: 12px;
+    color: #cfc538;
   }
 
   .car :nth-child(2) {
@@ -29,7 +30,7 @@
   .price {
     margin-top: 0.25rem;
     font-weight: bold;
-    color: #045a8b;
+    color: #fff;
     font-size: 1.25rem;
   }
 
@@ -40,8 +41,7 @@
   .details-btn a {
     font: inherit;
     cursor: pointer;
-    background-color: #045a8b;
-    border: 1px solid #045a8b;
+    background-color: green;
     color: white;
     padding: 0.25rem 2rem;
     border-radius: 20px;
@@ -51,6 +51,24 @@
   
   .details-btn a:hover,
   .details-btn a:active {
-    background-color: #04324d;
+    background-color: rgb(91, 228, 91);
     border-color: #04324d;
+  }
+
+  .delete-btn {
+    font: inherit;
+    cursor: pointer;
+    background-color: rgb(131, 28, 28);
+    border: 1px solid rgb(131, 28, 28);
+    color: white;
+    padding: 0.25rem 2rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .delete-btn:hover,
+  .delete-btn:active {
+    background-color: rgb(230, 42, 42);
+    border: 1px solid rgb(230, 42, 42);
   }

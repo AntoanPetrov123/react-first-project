@@ -13,7 +13,6 @@ const Header = props => {
     const authContext = useContext(AuthContext);
 
     const isLoggedIn = authContext.isLoggedIn;
-    console.log(isLoggedIn, 'logging');
 
     const logoutHandler = () => {
         authContext.logout();

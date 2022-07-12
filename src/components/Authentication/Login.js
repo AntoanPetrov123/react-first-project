@@ -56,7 +56,7 @@ const Login = () => {
             .then(data => {
                 console.log(data);
                 const expirationTime = new Date(new Date().getTime() + (+data.expiresIn * 1000));
-                authContext.login(data.idToken, expirationTime.toISOString());
+                authContext.login(data.idToken, expirationTime.toISOString(), data.localId);
                 redirect('/'); //redirect after login
             })
             .catch(error => alert(error.message));
