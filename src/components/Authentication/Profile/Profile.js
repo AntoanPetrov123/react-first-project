@@ -18,20 +18,22 @@ const Profile = () => {
         .then(result => {
             console.log(result, 'result');
             return Object.values(result);
-        }).then(
+        })
+        .then(
             users => {
                 // console.log(data.name, 'post');
                 // console.log(localStorage.userId, 'id');
                 const usersLength = users.length;
                 for (let i = 0; i < usersLength; i++) {
                     if (users[i].userId === localStorage.userId) {
+                        console.log(users[i], 'posts');
                         if (users[i].posts) {
                             users[i].posts.map(post => userPostsIds.push(post));
                         }
                     }
                 }
             }
-        );
+        ).catch(error => alert(error.message));
 
     fetch('https://change-your-car-react-default-rtdb.firebaseio.com/cars.json')
         .then(res => {
@@ -57,16 +59,18 @@ const Profile = () => {
                 }
             }
 
-        });
+        }).catch(error => alert(error.message));
 
-        if (isLoading) {
-            return (
-                <div className={classes['spinner-container']} >
-                    <div className={classes["loading-spinner"]}>
-                    </div>
+
+
+    if (isLoading) {
+        return (
+            <div className={classes['spinner-container']} >
+                <div className={classes["loading-spinner"]}>
                 </div>
-            );
-        }
+            </div>
+        );
+    }
 
     const carList = userPosts.map((post) =>
         <CarItemProfile
