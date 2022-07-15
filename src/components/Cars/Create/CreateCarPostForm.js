@@ -242,7 +242,6 @@ const CreateCarPostForm = (props) => {
   const descriptionInputClasses = descriptionInputHasError ? 'form-control-invalid' : 'form-control';
   const priceInputClasses = priceInputHasError ? 'form-control-invalid' : 'form-control';
 
-
   return (
     <section className={classes.auth}>
       <h1>Create a post</h1>
