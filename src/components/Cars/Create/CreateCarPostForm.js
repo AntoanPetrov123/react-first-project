@@ -89,6 +89,7 @@
 // export default CreateCarPostForm;
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import urls from '../../../storage/urls';
 import classes from './CreateCarPostForm.module.css';
 
 const CreateCarPostForm = (props) => {
@@ -108,11 +109,10 @@ const CreateCarPostForm = (props) => {
 
     // props.onCreatePost({ name: brnad, imageUrl: image, description: description, price: price});
 
-    const url = 'https://change-your-car-react-default-rtdb.firebaseio.com/cars.json';
     setIsLoading(true);
 
     // useEffect(() => {
-      fetch(url,
+      fetch(urls.cars,
         {
           method: 'POST',
           body: JSON.stringify({
@@ -143,7 +143,7 @@ const CreateCarPostForm = (props) => {
         .then(data => {
           const postId = data.name;
           setIsLoading(true);
-          fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json')
+          fetch(urls.users)
             .then(res => {
               return res.json();
             })

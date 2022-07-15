@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import AuthContext from '../../storage/auth-context';
+import urls from '../../storage/urls';
 import useInput from '../hooks/use-input';
 import classes from './AuthPage.module.css';
 import ErrorHandle from './ErrorHandle';
@@ -76,9 +77,8 @@ const Register = () => {
         // let enteredRePassword = formData.get('rePassword').trim();
 
         setIsLoading(true);
-        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc';
 
-        fetch(url,
+        fetch(urls.signUpAuthentication,
             {
                 method: 'POST',
                 body: JSON.stringify({
@@ -106,7 +106,7 @@ const Register = () => {
             })
             .then(data => {
                 authContext.login(data.idToken);
-                fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json',
+                fetch(urls.users,
                     {
                         method: 'POST',
                         body: JSON.stringify({

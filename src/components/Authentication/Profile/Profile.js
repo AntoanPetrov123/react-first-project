@@ -1,4 +1,5 @@
 import { useState } from "react";
+import urls from "../../../storage/urls";
 import CardProfile from "../../UI/CardProfile";
 import CarItemProfile from "./CarItemProfile";
 
@@ -11,7 +12,7 @@ const Profile = () => {
     const [isLoading, setIsLoading] = useState(true);
 
 
-    fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json')
+    fetch(urls.users)
         .then(res => {
             return res.json();
         })
@@ -35,7 +36,7 @@ const Profile = () => {
             }
         ).catch(error => alert(error.message));
 
-    fetch('https://change-your-car-react-default-rtdb.firebaseio.com/cars.json')
+    fetch(urls.cars)
         .then(res => {
             return res.json();
         })

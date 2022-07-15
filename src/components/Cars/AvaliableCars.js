@@ -4,6 +4,7 @@ import Card from '../UI/Card';
 import CarItem from './CarItem/CarItem';
 
 import classes from './AvaliableCars.module.css';
+import urls from '../../storage/urls';
 
 const AvaliableCars = () => {
     const [cars, setCars] = useState([]);
@@ -12,7 +13,7 @@ const AvaliableCars = () => {
 
     useEffect(() => {
         const fetchCars = async () => {
-            const response = await fetch('https://change-your-car-react-default-rtdb.firebaseio.com/cars.json');
+            const response = await fetch(urls.cars);
 
             if (!response.ok) {
                 throw new Error('Somthing is wrong!');

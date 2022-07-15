@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../storage/auth-context';
+import urls from '../../storage/urls';
 import useInput from '../hooks/use-input';
 
 import classes from './AuthPage.module.css';
@@ -50,10 +51,8 @@ const Login = () => {
         console.log(formData);
         // TODO: Add validation
         setIsLoading(true);
-        let url;
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc';
 
-        fetch(url,
+        fetch(urls.signInAuthentication,
             {
                 method: 'POST',
                 body: JSON.stringify({
