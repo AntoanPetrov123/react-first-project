@@ -1,8 +1,10 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../storage/auth-context';
+import useInput from '../hooks/use-input';
 
 import classes from './AuthPage.module.css';
+import ErrorHandle from './ErrorHandle';
 
 const Login = () => {
 
@@ -10,6 +12,32 @@ const Login = () => {
     const redirect = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
+
+    const {
+        value: enteredEmail,
+        isValid: enteredEmailIsValid,
+        hasError: emailInputHasError,
+        valueChangeHandler: emailChangeHandler,
+        inputBlurHandler: emailBlurHandler,
+        resetForm: resetEmailInput
+    } = useInput(value => /^.{6,}@(gmail|abv)\.(bg|com)$/.test(value));
+
+    const {
+        value: enteredPassword,
+        isValid: enteredPasswordIsValid,
+        hasError: passwordInputHasError,
+        valueChangeHandler: passwordChangeHandler,
+        inputBlurHandler: passwordBlurHandler,
+        resetForm: resetPasswordInput
+    } = useInput(value => (value.trim() !== '' && value.trim().length >= 6));
+
+    let formIsValid = false;
+
+    if (enteredEmailIsValid && enteredPasswordIsValid) {
+        formIsValid = true;
+    }
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -44,12 +72,9 @@ const Login = () => {
                     return res.json();
                 } else {
                     return res.json().then(data => {
-                        let errorMessage = 'Authentication failed';
-                        if (data && data.error && data.error.message) {
-                            errorMessage = data.error.message;
-                        }
-                        // alert(errorMessage);
-                        throw new Error(errorMessage);
+                        setHasError(true);
+                        setErrorMessage(ErrorHandle(data));
+                        throw new Error(ErrorHandle(data));
                     });
                 }
             })
@@ -59,31 +84,62 @@ const Login = () => {
                 authContext.login(data.idToken, expirationTime.toISOString(), data.localId);
                 redirect('/'); //redirect after login
             })
-            .catch(error => alert(error.message));
+            .catch(error => console.log(error.message));
+
+        resetEmailInput();
+        resetPasswordInput();
     };
+    const emailInputClasses = emailInputHasError ? 'form-control-invalid' : 'form-control';
+    const passwordInputClasses = passwordInputHasError ? 'form-control-invalid' : 'form-control';
 
     return (
         <section className={classes.auth}>
-            <h1>Login</h1>
+
             <form onSubmit={submitHandler}>
-
-                <div className={classes.control}>
-                    <label htmlFor='email'>Your Email</label>
-                    <input type='email' name='email' id='email' placeholder='john@gmail.com' required />
+                <h1>Login</h1>
+                {hasError && (
+                    <div className={classes['error-box']}>
+                        <p className={classes.error }>{errorMessage}</p>
+                    </div>
+                )}
+                <div className={classes[emailInputClasses]}>
+                    <label htmlFor='email'>Email</label>
+                    <input
+                        type='email'
+                        name='email'
+                        id='email'
+                        onChange={emailChangeHandler}
+                        onBlur={emailBlurHandler}
+                        placeholder='john@gmail.com'
+                        defaultValue={enteredEmail}
+                        required />
                 </div>
-                <div className={classes.control}>
-                    <label htmlFor='password'>Your Password</label>
-                    <input type='password' name='password' id='password' placeholder='*****' required />
+                {emailInputHasError && (
+                    <p className={classes['error-text']}>Email is not valid!</p>
+                )}
+                <div className={classes[passwordInputClasses]}>
+                    <label htmlFor='password'>Password</label>
+                    <input
+                        type='password'
+                        name='password'
+                        id='password'
+                        onChange={passwordChangeHandler}
+                        onBlur={passwordBlurHandler}
+                        placeholder='*****'
+                        defaultValue={enteredPassword}
+                        required />
                 </div>
-
+                {passwordInputHasError && (
+                    <p className={classes['error-text']}>Password is invalid, it should be at least 6 characters!</p>
+                )}
                 <div className={classes.actions}>
                     {!isLoading && (
-                        <button>Login</button>
+                        <button disabled={!formIsValid}>Login</button>
                     )}
                     {isLoading && <p>Sending request...</p>}
-                    
-                        <Link className={classes.toggle} to="/register">Do not have an account?</Link>
-                    
+
+                    <Link className={classes.toggle} to="/register">Do not have an account?</Link>
+
                 </div>
             </form>
         </section>);

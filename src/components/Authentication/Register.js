@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../storage/auth-context';
 import useInput from '../hooks/use-input';
 import classes from './AuthPage.module.css';
+import ErrorHandle from './ErrorHandle';
 
 const Register = () => {
 
@@ -11,6 +12,8 @@ const Register = () => {
     const redirect = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const {
         value: enteredUsername,
@@ -95,12 +98,9 @@ const Register = () => {
                     return res.json();
                 } else {
                     return res.json().then(data => {
-                        let errorMessage = 'Authentication failed';
-                        if (data && data.error && data.error.message) {
-                            errorMessage = data.error.message;
-                        }
-                        // alert(errorMessage);
-                        throw new Error(errorMessage);
+                        setHasError(true);
+                        setErrorMessage(ErrorHandle(data));
+                        throw new Error(ErrorHandle(data));
                     });
                 }
             })
@@ -139,6 +139,11 @@ const Register = () => {
     return (
         <section className={classes.auth}>
             <h1>Create an account</h1>
+            {hasError && (
+                    <div className={classes['error-box']}>
+                        <p className={classes.error }>{errorMessage}</p>
+                    </div>
+            )}
             <form onSubmit={submitHandler}>
                 <div className={classes[usernameInputClasses]}>
                     <label htmlFor='username'>Username</label>
