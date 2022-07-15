@@ -15,18 +15,20 @@
     color: white;
   }
   
-  .control {
+  .form-control,
+  .form-control-invalid {
     margin-bottom: 0.5rem;
   }
   
-  .control label {
+  .form-control label,
+  .form-control-invalid label {
     display: block;
     color: white;
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
   
-  .control input {
+  .form-control input {
     font: inherit;
     background-color: rgb(194, 239, 246);
     color: #04324d;
@@ -35,6 +37,20 @@
     width: 80%;
     text-align: left;
     padding: 0.45rem;
+  }
+
+  .form-control-invalid input{
+    font: inherit;
+    border-radius: 4px;
+    width: 80%;
+    text-align: left;
+    padding: 0.45rem;
+    background-color: rgba(255, 118, 106, 0.596);
+    border: 2px solid rgb(245, 19, 19);
+  }
+
+  .error-text {
+    color: rgb(245, 19, 19);
   }
   
   .actions {
@@ -57,6 +73,15 @@
   .actions button:hover {
     background-color: #045a8b;
     border-color: #045a8b;
+  }
+
+  .actions button:disabled,
+  .actions button:disabled:hover,
+  .actions button:disabled:active {
+    cursor: not-allowed;
+    background-color: #ccc;
+    border-color: #ccc;
+    color: rgb(53, 53, 53);
   }
   
   .actions .toggle {

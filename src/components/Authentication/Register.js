@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import AuthContext from '../../storage/auth-context';
+import useInput from '../hooks/use-input';
 import classes from './AuthPage.module.css';
 
 const Register = () => {
@@ -9,19 +10,68 @@ const Register = () => {
     const authContext = useContext(AuthContext);
     const redirect = useNavigate();
 
-
     const [isLoading, setIsLoading] = useState(false);
+
+    const {
+        value: enteredUsername,
+        isValid: enteredUsernameIsValid,
+        hasError: usernameInputHasError,
+        valueChangeHandler: usernameChangeHandler,
+        inputBlurHandler: usernameBlurHandler,
+        resetForm: resetUsernameInput
+    } = useInput(value => value.trim() !== '');
+
+    const {
+        value: enteredEmail,
+        isValid: enteredEmailIsValid,
+        hasError: emailInputHasError,
+        valueChangeHandler: emailChangeHandler,
+        inputBlurHandler: emailBlurHandler,
+        resetForm: resetEmailInput
+    } = useInput(value => /^.{6,}@(gmail|abv)\.(bg|com)$/.test(value));
+
+    const {
+        value: enteredPassword,
+        isValid: enteredPasswordIsValid,
+        hasError: passwordInputHasError,
+        valueChangeHandler: passwordChangeHandler,
+        inputBlurHandler: passwordBlurHandler,
+        resetForm: resetPasswordInput
+    } = useInput(value => (value.trim() !== '' && value.trim().length >= 6));
+
+    const {
+        value: enteredRePassword,
+        isValid: enteredRePasswordIsValid,
+        hasError: rePasswordInputHasError,
+        valueChangeHandler: rePasswordChangeHandler,
+        inputBlurHandler: rePasswordBlurHandler,
+        resetForm: resetRePasswordInput
+    } = useInput(value => (
+        (value.trim() !== '') &&
+        (value.trim().length >= 6) &&
+        (value.trim() === enteredPassword)
+    ));
+
+    let formIsValid = false;
+
+    if (enteredUsernameIsValid && enteredEmailIsValid && enteredPasswordIsValid && enteredRePasswordIsValid) {
+        formIsValid = true;
+    }
 
     const submitHandler = (event) => {
         event.preventDefault();
 
-        let formData = new FormData(event.currentTarget);
-        let enteredUsername = formData.get('username');
-        let enteredEmail = formData.get('email');
-        let enteredPassword = formData.get('password');
-        // let enteredRePassword = formData.get('rePassword');
+        if (!enteredUsernameIsValid) {
+            return;
+        }
 
-        // TODO: Add validation
+
+        let formData = new FormData(event.currentTarget);
+        let enteredUsername = formData.get('username').trim();
+        let enteredEmail = formData.get('email').trim();
+        let enteredPassword = formData.get('password').trim();
+        // let enteredRePassword = formData.get('rePassword').trim();
+
         setIsLoading(true);
         const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCPh4cwZaL0tHRX8P91m5cRQ5DJhklFbc';
 
@@ -71,36 +121,89 @@ const Register = () => {
                         },
                     }
                 )
-                redirect('/');
+                redirect('/login');
             })
             .catch(error => alert(error.message));
+
+        resetUsernameInput();
+        resetEmailInput();
+        resetPasswordInput();
+        resetRePasswordInput();
     };
 
+    const usernameInputClasses = usernameInputHasError ? 'form-control-invalid' : 'form-control';
+    const emailInputClasses = emailInputHasError ? 'form-control-invalid' : 'form-control';
+    const passwordInputClasses = passwordInputHasError ? 'form-control-invalid' : 'form-control';
+    const rePasswordInputClasses = rePasswordInputHasError ? 'form-control-invalid' : 'form-control';
 
     return (
         <section className={classes.auth}>
             <h1>Create an account</h1>
             <form onSubmit={submitHandler}>
-                <div className={classes.control}>
+                <div className={classes[usernameInputClasses]}>
                     <label htmlFor='username'>Username</label>
-                    <input type='text' name='username' id='username' placeholder='John' required />
+                    <input
+                        type='text'
+                        name='username'
+                        id='username'
+                        onChange={usernameChangeHandler}
+                        onBlur={usernameBlurHandler}
+                        placeholder='John'
+                        defaultValue={enteredUsername}
+                        required />
                 </div>
-                <div className={classes.control}>
+                {usernameInputHasError && (
+                    <p className={classes['error-text']}>Username is not valid!</p>
+                )}
+                <div className={classes[emailInputClasses]}>
                     <label htmlFor='email'>Email</label>
-                    <input type='email' name='email' id='email' placeholder='john@gmail.com' required />
+                    <input
+                        type='email'
+                        name='email'
+                        id='email'
+                        onChange={emailChangeHandler}
+                        onBlur={emailBlurHandler}
+                        placeholder='john@gmail.com'
+                        defaultValue={enteredEmail}
+                        required />
                 </div>
-                <div className={classes.control}>
+                {emailInputHasError && (
+                    <p className={classes['error-text']}>Email is not valid!</p>
+                )}
+                <div className={classes[passwordInputClasses]}>
                     <label htmlFor='password'>Password</label>
-                    <input type='password' name='password' id='password' placeholder='*****' required />
+                    <input
+                        type='password'
+                        name='password'
+                        id='password'
+                        onChange={passwordChangeHandler}
+                        onBlur={passwordBlurHandler}
+                        placeholder='*****'
+                        defaultValue={enteredPassword}
+                        required />
                 </div>
-                <div className={classes.control}>
+                {passwordInputHasError && (
+                    <p className={classes['error-text']}>Password is invalid, it should be at least 6 characters!</p>
+                )}
+                <div className={classes[rePasswordInputClasses]}>
                     <label htmlFor='rePassword'>Repeat Password</label>
-                    <input type='password' name='rePassword' id='rePassword' placeholder='*****' required />
+                    <input
+                        type='password'
+                        name='rePassword'
+                        id='rePassword'
+                        onChange={rePasswordChangeHandler}
+                        onBlur={rePasswordBlurHandler}
+                        placeholder='*****'
+                        defaultValue={enteredRePassword}
+                        required />
                 </div>
+                {rePasswordInputHasError && (
+                    <p className={classes['error-text']}>Passwords do not match!</p>
+                )}
                 <div className={classes.actions}>
 
                     {!isLoading && (
-                        <button>Sign up</button>
+                        <button disabled={!formIsValid}>Sign up</button>
                     )}
                     {isLoading && <p>Sending request...</p>}
 

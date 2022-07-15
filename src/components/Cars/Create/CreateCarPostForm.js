@@ -108,85 +108,85 @@ const CreateCarPostForm = (props) => {
 
     // props.onCreatePost({ name: brnad, imageUrl: image, description: description, price: price});
 
-    const url = 'https://change-your-car-react-default-rtdb.firebaseio.com/cars.json'
+    const url = 'https://change-your-car-react-default-rtdb.firebaseio.com/cars.json';
     setIsLoading(true);
-    fetch(url,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          name: brnad,
-          imageUrl: image,
-          description: description,
-          price: price,
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }
-    )
-      .then(res => {
-        setIsLoading(false);
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json()
-            .then(data => {
-              let errorMessage = 'Creation failed';
-              if (data && data.error && data.error.message) {
-                errorMessage = data.error.message;
-              }
-              // alert(errorMessage);
-              throw new Error(errorMessage);
-            });
+
+    // useEffect(() => {
+      fetch(url,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            name: brnad,
+            imageUrl: image,
+            description: description,
+            price: price,
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          },
         }
-      })
-      .then(data => {
-        const postId = data.name;
-        setIsLoading(true);
-        fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json')
-          .then(res => {
+      )
+        .then(async res => {
+          setIsLoading(false);
+          if (res.ok) {
             return res.json();
-          })
-          .then(result => {
-            return Object.values(result);
-          }).then(
-            users => {
-              // console.log(data.name, 'post');
-              // console.log(localStorage.userId, 'id');
-              const usersLength = users.length;
-              for (let i = 0; i < usersLength; i++) {
-                if (users[i].userId === localStorage.userId) {
-                  console.log(users[i], 'user i');
-                  setIsLoading(true);
-                  fetch(`https://change-your-car-react-default-rtdb.firebaseio.com/users/${localStorage.userId}.json`, {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                      ...users[i],
-                      posts: users[i].posts ? [...users[i].posts, postId] : [postId],
-                    })
-                  })
-                    .then(res => {
-                      setIsLoading(false);
-                      if (res.ok) {
-                        return res.json();
-                      } else {
-                        return res.json()
-                          .then(data => {
-                            let errorMessage = 'Creation failed';
-                            if (data && data.error && data.error.message) {
-                              errorMessage = data.error.message;
-                            }
-                            // alert(errorMessage);
-                            throw new Error(errorMessage);
-                          });
-                      }
-                    })
-                  redirect('/cars-catalog');
-                }
-              }
+          } else {
+            const data = await res.json();
+            let errorMessage = 'Creation failed';
+            if (data && data.error && data.error.message) {
+              errorMessage = data.error.message;
+            }
+            // alert(errorMessage);
+            throw new Error(errorMessage);
+          }
+        })
+        .then(data => {
+          const postId = data.name;
+          setIsLoading(true);
+          fetch('https://change-your-car-react-default-rtdb.firebaseio.com/users.json')
+            .then(res => {
+              return res.json();
             })
-          .catch(error => alert(error.message));
-      });
+            .then(result => {
+              return Object.values(result);
+            }).then(
+              users => {
+                // console.log(data.name, 'post');
+                // console.log(localStorage.userId, 'id');
+                const usersLength = users.length;
+                for (let i = 0; i < usersLength; i++) {
+                  if (users[i].userId === localStorage.userId) {
+                    console.log(users[i], 'user i');
+                    setIsLoading(true);
+                    fetch(`https://change-your-car-react-default-rtdb.firebaseio.com/users/${localStorage.userId}.json`, {
+                      method: 'PUT',
+                      body: JSON.stringify({
+                        ...users[i],
+                        posts: users[i].posts ? [...users[i].posts, postId] : [postId],
+                      })
+                    })
+                      .then(async res => {
+                        setIsLoading(false);
+                        if (res.ok) {
+                          return res.json();
+                        } else {
+                          const data = await res.json();
+                          let errorMessage = 'Creation failed';
+                          if (data && data.error && data.error.message) {
+                            errorMessage = data.error.message;
+                          }
+                          // alert(errorMessage);
+                          throw new Error(errorMessage);
+                        }
+                      })
+
+                    redirect('/cars-catalog');
+                  }
+                }
+              })
+            .catch(error => alert(error.message));
+          });
+        // }, [localStorage.userId])
   }
   return (
     <section className={classes.auth}>
