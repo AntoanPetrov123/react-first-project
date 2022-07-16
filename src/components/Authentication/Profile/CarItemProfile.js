@@ -17,7 +17,7 @@ const CarItemProfile = props => {
                 <div className={classes.price}>{price}</div>
             </div>
             <div className={classes['details-btn']}>
-                    <Link to={`/details/${props.id}`}>Edit</Link>
+                    <Link to={`/edit/${props.id}`}>Edit</Link>
             </div>
             <div>
                 <button  className={classes['delete-btn']}>Delete</button>
