@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 
-import Card from '../UI/Card';
 import CarItem from './CarItem/CarItem';
+import Card from '../UI/Card';
 
 import classes from './AvaliableCars.module.css';
 import urls from '../../storage/urls';
+import { Link } from 'react-router-dom';
 
 const AvaliableCars = () => {
     const [cars, setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isEmpty, setIsEmpty] = useState(false);
 
     useEffect(() => {
         const fetchCars = async () => {
@@ -71,15 +73,27 @@ const AvaliableCars = () => {
         />
     );
 
-    return (
-        <section className={classes.cars}>
-            <Card>
-                <ul>
-                    {carList}
-                </ul>
-            </Card>
-        </section>
-    );
+
+    if (carList.length === 0) {
+        return (
+            <section className={classes.cars}>
+                <div className={classes.empty}>
+                    <p className={classes['empty-text']}>Oops! There are no posts!</p>
+                    <p className={classes['empty-text']}>Create First - <Link to="/create-post">Here!</Link> </p>
+                </div>
+            </section >
+        );
+    } else {
+        return (
+            <section className={classes.cars}>
+                <Card>
+                    <ul>
+                        {carList}
+                    </ul>
+                </Card>
+            </section>
+        );
+    }
 };
 
 export default AvaliableCars;
