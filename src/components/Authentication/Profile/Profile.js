@@ -10,6 +10,7 @@ const Profile = () => {
     let userPostsIds = [];
     const [userPosts, setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isEmpty, setIsEmpty] = useState(false);
 
 
     fetch(urls.users)
@@ -27,9 +28,11 @@ const Profile = () => {
                 const usersLength = users.length;
                 for (let i = 0; i < usersLength; i++) {
                     if (users[i].userId === localStorage.userId) {
-                        console.log(users[i], 'posts');
                         if (users[i].posts) {
+                            console.log(users[i].posts, 'posts');
                             users[i].posts.map(post => userPostsIds.push(post));
+                        } else {
+                            setIsEmpty(true);
                         }
                     }
                 }
@@ -41,6 +44,10 @@ const Profile = () => {
             return res.json();
         })
         .then(result => {
+            if (!result) {
+                setIsEmpty(true);
+                return;
+            }
             return result;
         })
         .then(result => {
@@ -72,6 +79,7 @@ const Profile = () => {
             </div>
         );
     }
+    
 
     const carList = userPosts.map((post) =>
         <CarItemProfile
@@ -84,13 +92,21 @@ const Profile = () => {
         />
     );
 
+    if (!carList) {
+        setIsEmpty(true);
+    }
+
+
     return (
         <section className={classes.cars}>
-            <CardProfile>
+            { !isEmpty && 
+
+                <CardProfile>
                 <ul>
                     {carList}
                 </ul>
             </CardProfile>
+            }
         </section>
     );
 };
