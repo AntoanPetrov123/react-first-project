@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import urls from '../../../storage/urls';
 import classes from './CarItemProfile.module.css';
-const CarItemProfile = props => {
+const CarItemProfile = (props) => {
 
     const price = `$${+props.price}`
 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [userPosts, setCars] = useState([]);
+    let userPostsIds = [];
 
+    const redirect = useNavigate();
 
-    console.log(props.id, 'props');
+    console.log(props.name, 'props');
 
     const deleteButtonHandler = (postId) => {
 
@@ -33,7 +37,7 @@ const CarItemProfile = props => {
             const resData = await responsePostsInProfile.json();
 
             const dataEntries = Object.entries(resData);
-        
+
             let indexForDelete;
 
             dataEntries.map(([k, v]) => v === postId ? indexForDelete = k : indexForDelete);
@@ -47,9 +51,9 @@ const CarItemProfile = props => {
             if (!responseCurrentPostInProfile.ok) {
                 throw new Error('Somthing is wrong!');
             }
-        };
-
-        //chech if we have any errors
+            console.log(localStorage.userId, 'ids');
+            props.handleCarDeleted();
+        }
         fetchCars().catch((err) => {
             setIsLoading(false);
             setError(err.message);
@@ -59,17 +63,27 @@ const CarItemProfile = props => {
             setIsLoading(false);
             setError(err.message);
         });
+
+        redirect('/profile')
     };
 
-    if (isLoading) {
-        return (
-            <div className={classes['spinner-container']} >
-                <div className={classes["loading-spinner"]}>
-                </div>
-            </div>
-        );
+    // chech if we have any errors
+    // if (isLoading && !error) {
+    //     return (
+    //         <div className={classes['spinner-container']} >
+    //             <div className={classes["loading-spinner"]}>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+    const postData = {
+        name: props.name,
+        imageUrl: props.imageUrl,
+        description: props.description,
+        price: +props.price,
+        _id: props.id
     }
-    
+
 
     return (
         <li className={classes.car}>
@@ -82,13 +96,16 @@ const CarItemProfile = props => {
                 <div className={classes.price}>{price}</div>
             </div>
             <div className={classes['details-btn']}>
-                <Link to={`/edit/${props.id}`} params={{ name: props.name, imageUrl: props.imageUrl, description: props.description, price: price }}>Edit</Link>
+                <Link to={`/edit/${props.id}`}
+                    state={postData}
+                >
+                    Edit
+                </Link>
             </div>
             <div>
-                <button className={classes['delete-btn']} onClick={() => deleteButtonHandler(props.id)} >Delete</button>
+                <button className={classes['delete-btn']} onClick={() => deleteButtonHandler(props.id)}>Delete</button>
             </div>
         </li>
     );
-};
-
+}
 export default CarItemProfile;

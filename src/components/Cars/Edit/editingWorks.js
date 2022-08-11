@@ -56,57 +56,57 @@ const EditCarPostForm = (props) => {
 
     }, []);
 
-    const {
-        value: enteredName,
-        isValid: enteredNameIsValid,
-        hasError: nameInputHasError,
-        valueChangeHandler: nameChangeHandler,
-        inputBlurHandler: nameBlurHandler,
-        resetForm: resetNameInput
-    } = useInput(value => (value.trim() !== '' && value.trim().length > 2));
+    // const {
+    //     value: enteredName,
+    //     isValid: enteredNameIsValid,
+    //     hasError: nameInputHasError,
+    //     valueChangeHandler: nameChangeHandler,
+    //     inputBlurHandler: nameBlurHandler,
+    //     resetForm: resetNameInput
+    // } = useInput(value => (value.trim() !== '' && value.trim().length > 2));
 
-    const {
-        value: enteredImageUrl,
-        isValid: enteredUrlIsValid,
-        hasError: urlInputHasError,
-        valueChangeHandler: urlChangeHandler,
-        inputBlurHandler: urlBlurHandler,
-        resetForm: resetUrlInput
-    } = useInput(value => (value.trim() !== '' && /^(http|https):\/\/.{0,}$/.test(value)));
+    // const {
+    //     value: enteredImageUrl,
+    //     isValid: enteredUrlIsValid,
+    //     hasError: urlInputHasError,
+    //     valueChangeHandler: urlChangeHandler,
+    //     inputBlurHandler: urlBlurHandler,
+    //     resetForm: resetUrlInput
+    // } = useInput(value => (value.trim() !== '' && /^(http|https):\/\/.{0,}$/.test(value)));
 
-    const {
-        value: enteredDescription,
-        isValid: enteredDescriptionIsValid,
-        hasError: descriptionInputHasError,
-        valueChangeHandler: descriptionChangeHandler,
-        inputBlurHandler: descriptionBlurHandler,
-        resetForm: resetDescriptionInput
-    } = useInput(value => (value.trim() !== '' && (value.trim().length >= 10 && value.trim().length <= 300)));
+    // const {
+    //     value: enteredDescription,
+    //     isValid: enteredDescriptionIsValid,
+    //     hasError: descriptionInputHasError,
+    //     valueChangeHandler: descriptionChangeHandler,
+    //     inputBlurHandler: descriptionBlurHandler,
+    //     resetForm: resetDescriptionInput
+    // } = useInput(value => (value.trim() !== '' && (value.trim().length >= 10 && value.trim().length <= 300)));
 
-    const {
-        value: enteredPrice,
-        isValid: enteredPriceIsValid,
-        hasError: priceInputHasError,
-        valueChangeHandler: priceChangeHandler,
-        inputBlurHandler: priceBlurHandler,
-        resetForm: resetPriceInput
-    } = useInput(value => value.trim() !== '');
+    // const {
+    //     value: enteredPrice,
+    //     isValid: enteredPriceIsValid,
+    //     hasError: priceInputHasError,
+    //     valueChangeHandler: priceChangeHandler,
+    //     inputBlurHandler: priceBlurHandler,
+    //     resetForm: resetPriceInput
+    // } = useInput(value => value.trim() !== '');
 
-    let formIsValid = false;
+    // let formIsValid = false;
 
-    if (enteredNameIsValid && enteredUrlIsValid && enteredDescriptionIsValid && enteredPriceIsValid) {
-        formIsValid = true;
-    }
+    // if (enteredNameIsValid && enteredUrlIsValid && enteredDescriptionIsValid && enteredPriceIsValid) {
+    //     formIsValid = true;
+    // }
     const url = urls.cars + `/${postData._id}`;
     console.log(url, 'url');
 
     function submitEditFormHandler(event) {
         event.preventDefault();
         console.log('Editing complete');
-        resetNameInput();
-        resetUrlInput();
-        resetDescriptionInput();
-        resetPriceInput();
+        // resetNameInput();
+        // resetUrlInput();
+        // resetDescriptionInput();
+        // resetPriceInput();
         let formData = new FormData(event.currentTarget);
         let brnad = formData.get('name');
         let image = formData.get('image');
@@ -162,10 +162,10 @@ const EditCarPostForm = (props) => {
     // console.log(params.id);
     // // console.log(post);
 
-    const nameInputClasses = nameInputHasError ? 'form-control-invalid' : 'form-control';
-    const urlInputClasses = urlInputHasError ? 'form-control-invalid' : 'form-control';
-    const descriptionInputClasses = descriptionInputHasError ? 'form-control-invalid' : 'form-control';
-    const priceInputClasses = priceInputHasError ? 'form-control-invalid' : 'form-control';
+    // const nameInputClasses = nameInputHasError ? 'form-control-invalid' : 'form-control';
+    // const urlInputClasses = urlInputHasError ? 'form-control-invalid' : 'form-control';
+    // const descriptionInputClasses = descriptionInputHasError ? 'form-control-invalid' : 'form-control';
+    // const priceInputClasses = priceInputHasError ? 'form-control-invalid' : 'form-control';
 
     if (!postData) {
         return (
@@ -182,53 +182,57 @@ const EditCarPostForm = (props) => {
             )}
 
             <form onSubmit={submitEditFormHandler}>
-                <div className={classes[nameInputClasses]}>
+                {/* <div className={classes[nameInputClasses]}> */}
+                <div>
                     <label htmlFor='name'>Car Brand</label>
                     <input
                         type='text'
                         name='name'
                         id='name'
-                        onChange={nameChangeHandler}
-                        onBlur={nameBlurHandler}
+                        // onChange={nameChangeHandler}
+                        // onBlur={nameBlurHandler}
                         placeholder={postData.name}
                         defaultValue={postData.name}
                         required />
                 </div>
-                {nameInputHasError && (
-                    <p className={classes['error-text']}>Name is not valid!</p>
-                )}
-                <div className={classes[urlInputClasses]}>
+                {/* {nameInputHasError && ( 
+                <p className={classes['error-text']}>Name is not valid!</p>
+                )} 
+                <div className={classes[urlInputClasses]}> */}
+                <div>
                     <label htmlFor='image'>Car Photo</label>
                     <input
                         type='text'
                         name='image'
                         id='image'
-                        onChange={urlChangeHandler}
-                        onBlur={urlBlurHandler}
+                        // onChange={urlChangeHandler}
+                        // onBlur={urlBlurHandler}
                         placeholder='http://...'
                         defaultValue={postData.imageUrl}
                         required />
                 </div>
-                {urlInputHasError && (
+                {/* {urlInputHasError && (
                     <p className={classes['error-text']}>Image url is not valid!</p>
-                )}
-                <div className={classes[descriptionInputClasses]}>
+                )} */}
+                <div>
+                    {/* <div className={classes[descriptionInputClasses]}> */}
                     <label htmlFor='description'>Car Description</label>
                     <textarea
                         type='text'
                         name='description'
                         id='description'
                         rows='4'
-                        onChange={descriptionChangeHandler}
-                        onBlur={descriptionBlurHandler}
+                        // onChange={descriptionChangeHandler}
+                        // onBlur={descriptionBlurHandler}
                         placeholder='Brand new; Color: red; Year: 2018...'
                         defaultValue={postData.description}
                         required ></textarea>
                 </div>
-                {descriptionInputHasError && (
+                {/* {descriptionInputHasError && (
                     <p className={classes['error-text']}>Description is not valid!</p>
-                )}
-                <div className={classes[priceInputClasses]}>
+                )} */}
+                {/* <div className={classes[priceInputClasses]}> */}
+                <div>
                     <label htmlFor='price'>Car Price</label>
                     <input
                         type='number'
@@ -236,14 +240,15 @@ const EditCarPostForm = (props) => {
                         id='price'
                         step="0.01"
                         min={0}
-                        onChange={priceChangeHandler}
-                        onBlur={priceBlurHandler}
+                        // onChange={priceChangeHandler}
+                        // onBlur={priceBlurHandler}
                         placeholder='8888.88'
                         defaultValue={+postData.price}
                         required />
-                </div>{priceInputHasError && (
+                </div>
+                {/* {priceInputHasError && (
                     <p className={classes['error-text']}>Price is not valid!</p>
-                )}
+                )} */}
                 <div className={classes.actions}>
 
                     {!isLoading && <button type="submit" >Submit</button>}

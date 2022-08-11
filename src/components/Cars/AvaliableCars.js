@@ -11,7 +11,6 @@ const AvaliableCars = () => {
     const [cars, setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [isEmpty, setIsEmpty] = useState(false);
 
     useEffect(() => {
         const fetchCars = async () => {
