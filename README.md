@@ -1,3 +1,48 @@
+# Angular Project Instacar - Antoan Petrov
+
+This is a small website where people can share sell or buy cars.
+Using React for Front-end, Firebase for Back-end and HTML & CSS for UI
+
+# Info and functionalities:
+
+## Components:
+
+- Authentication component - contains Login, Register and Profile components
+- Cars component - contains CarItem, Create, Edit and list of all cars
+- Cart component
+- Home component
+- Layout component - contains Header and Footer components
+- UI component - Card, Input, Modal, PageNotFound
+- Storage - Auth Context, Cart Context, Cart Provider, URLs
+
+## Permissions
+
+### Guests:
+
+Can see all post of users, check their details and add them to cart.
+
+They can login or register.
+
+### Logged-in/Rigistered Users:
+
+Can post cars.
+
+Can see all of their posts in their profile.
+
+In their profiles owners can edit or delete their posts.
+
+
+## Paths:
+
+- POST - Signing up - /register - ('username', 'email', 'password', 'rePassword') - Guests
+- POST - Signing in - /login - ('email', 'password') - Guests
+- POST - Logging out - /logout -  - Logged in users
+- GET - Get all posts - /cars-catalog - - Guests and Users
+- POST - Share new post - /create-post - 'name', 'imageUrl', 'description', 'price' - Logged in users
+- GET - See post details - /details/:carId - - Guests and Users
+- PUT - Edit own posts details - /edit/:carId - 'name', 'imageUrl', 'description', 'price' - Logged in users (owner of post)
+- PUT - Add to cart - /cars-catalog - Guests and Users (can add more then one cars, including their own)
+- DELETE - Delete a post - /profile - Owner of posts
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
