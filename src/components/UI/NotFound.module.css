@@ -1,0 +1,24 @@
+.centered {
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-size: 100px;
+}
+
+.centered p {
+    margin-bottom: 0px;
+}
+
+.go-home{
+    background-color: transparent;
+    color: #13afdf;
+    font-style: italic;
+    border: none;
+    font-size: 20px;
+    padding: 0.15rem 1.5rem;  
+}
+
+.go-home:hover {
+    background-color: transparent;
+    color: #59d2f6;
+}
