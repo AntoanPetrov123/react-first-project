@@ -6,7 +6,7 @@ const NotFound = () => {
     return (
         <div className={classes.centered}>
             <p>Page Not Found!</p>
-            <Link className={classes["go-home"]} to="/">Go home!</Link>
+            <Link className={classes["go-home"]} to="/">Go to home!</Link>
         </div>
     );
 };
