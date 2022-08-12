@@ -1,4 +1,4 @@
-# Angular Project Instacar - Antoan Petrov
+# React Project Change Your Car - Antoan Petrov
 
 This is a small website where people can share sell or buy cars.
 Using React for Front-end, Firebase for Back-end and HTML & CSS for UI
