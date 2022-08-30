@@ -125,10 +125,22 @@ const Register = () => {
             })
             .catch(error => alert(error.message));
 
-        resetUsernameInput();
-        resetEmailInput();
-        resetPasswordInput();
-        resetRePasswordInput();
+//         resetUsernameInput();
+//         resetEmailInput();
+//         resetPasswordInput();
+//         resetRePasswordInput();
+        if (usernameInputHasError) {
+            resetUsernameInput();
+        }
+        if (emailInputHasError) {
+            resetEmailInput();
+        }
+        if (passwordInputHasError) {
+            resetPasswordInput();
+        }
+        if (rePasswordInputHasError) {
+            resetRePasswordInput();
+        }
     };
 
     const usernameInputClasses = usernameInputHasError ? 'form-control-invalid' : 'form-control';
