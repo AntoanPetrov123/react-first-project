@@ -85,8 +85,14 @@ const Login = () => {
             })
             .catch(error => console.log(error.message));
 
-        resetEmailInput();
-        resetPasswordInput();
+//         resetEmailInput();
+//         resetPasswordInput();
+        if (emailInputHasError) {
+            resetEmailInput();
+        }
+        if (passwordInputHasError) {
+            resetPasswordInput();
+        }
     };
     const emailInputClasses = emailInputHasError ? 'form-control-invalid' : 'form-control';
     const passwordInputClasses = passwordInputHasError ? 'form-control-invalid' : 'form-control';
