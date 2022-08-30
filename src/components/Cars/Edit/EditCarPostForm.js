@@ -103,10 +103,10 @@ const EditCarPostForm = (props) => {
     function submitEditFormHandler(event) {
         event.preventDefault();
         console.log('Editing complete');
-        resetNameInput();
-        resetUrlInput();
-        resetDescriptionInput();
-        resetPriceInput();
+//         resetNameInput();
+//         resetUrlInput();
+//         resetDescriptionInput();
+//         resetPriceInput();
         let formData = new FormData(event.currentTarget);
         let brnad = formData.get('name');
         let image = formData.get('image');
@@ -135,7 +135,18 @@ const EditCarPostForm = (props) => {
             redirect('/profile');
         }).catch(errorMessage => console.log(setErrorMessage(errorMessage)));
 
-
+        if (postData.name) {
+            resetNameInput();
+        }
+        if (postData.imageUrl) {
+            resetUrlInput();
+        }
+        if (postData.description) {
+            resetDescriptionInput();
+        }
+        if (+postData.price) {
+            resetPriceInput();
+        }
     }
 
 
